@@ -51,7 +51,7 @@ RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
 # Jupyter
-RUN pip install jupyter
+RUN pip install jupyter matplotlib
 
 #-----------------------------------
 # Cleanup
