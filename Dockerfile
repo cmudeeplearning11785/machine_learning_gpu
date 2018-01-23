@@ -50,6 +50,9 @@ RUN mkdir build && cd build && cmake .. && make && make install
 RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
+# Jupyter
+RUN pip install jupyter
+
 #-----------------------------------
 # Cleanup
 #-----------------------------------
