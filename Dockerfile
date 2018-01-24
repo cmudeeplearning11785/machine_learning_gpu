@@ -51,7 +51,8 @@ RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
 # Jupyter
-RUN pip install jupyter matplotlib
+RUN pip install jupyter matplotlib ipywidgets
+RUN jupyter nbextension enable --py widgetsnbextension
 
 #-----------------------------------
 # Cleanup
