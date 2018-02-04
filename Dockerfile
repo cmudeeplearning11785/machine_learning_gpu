@@ -5,6 +5,9 @@ FROM pytorch/pytorch
 #-----------------------------------
 RUN pip install tqdm h5py lmdb pandas
 RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
+RUN pip install torchvision
+RUN pip install inferno-pytorch
+RUN pip install git+https://github.com/pytorch/tnt.git@master
 
 RUN apt-get update
 RUN apt-get install wget
