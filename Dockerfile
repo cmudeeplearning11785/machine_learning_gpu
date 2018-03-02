@@ -38,6 +38,31 @@ RUN make install
 
 RUN ldconfig
 
+# Jupyter
+RUN pip install jupyter matplotlib ipywidgets
+RUN jupyter nbextension enable --py widgetsnbextension
+
+# Pycharm
+
+RUN apt-get update
+RUN apt-get -y install apt-utils
+RUN apt-get install -y software-properties-common python-software-properties
+RUN sh -c 'echo "deb http://archive.getdeb.net/ubuntu yakkety-getdeb apps" >> /etc/apt/sources.list.d/getdeb.list'
+RUN wget -q -O - http://archive.getdeb.net/getdeb-archive.key | apt-key add -
+RUN apt-get update
+RUN apt-get install -y pycharm
+#RUN add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+#RUN apt-get update
+#RUN apt-get install -y ubuntu-make
+#RUN umake ide pycharm
+#RUN apt-get -y install snap snapd
+#RUN service  snapd restart
+#RUN snap install pycharm-community --classic
+
+RUN pip install git+https://github.com/inferno-pytorch/inferno --no-deps
+#RUN apt-get install cuda-command-line-tools
+RUN pip install tensorflow-gpu
+
 #-----------------------------------
 # CTC
 #-----------------------------------
@@ -50,9 +75,13 @@ RUN mkdir build && cd build && cmake .. && make && make install
 RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
-# Jupyter
-RUN pip install jupyter matplotlib ipywidgets
-RUN jupyter nbextension enable --py widgetsnbextension
+# Decoder
+WORKDIR /home/ctc
+RUN git clone --recursive https://github.com/parlance/ctcdecode.git
+WORKDIR /home/ctc/ctcdecode
+RUN pip install wget
+COPY boost_1_63_0.tar.gz /home/ctc/ctcdecode/third_party/
+RUN pip install .
 
 #-----------------------------------
 # Cleanup
