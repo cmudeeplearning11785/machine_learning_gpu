@@ -16,11 +16,13 @@ RUN apt-get install wget
 #-----------------------------------
 RUN mkdir -p /home/sphinx
 WORKDIR /home/sphinx
-RUN wget -O pocketsphinx-5prealpha.tar.gz https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz/download 
-RUN wget -O sphinxbase-5prealpha.tar.gz https://sourceforge.net/projects/cmusphinx/files/sphinxbase/5prealpha/sphinxbase-5prealpha.tar.gz/download 
-
-RUN tar xzf pocketsphinx-5prealpha.tar.gz
-RUN tar xzf sphinxbase-5prealpha.tar.gz
+# Download is currently broken
+#RUN wget -O pocketsphinx-5prealpha.tar.gz https://sourceforge.net/projects/cmusphinx/files/pocketsphinx/5prealpha/pocketsphinx-5prealpha.tar.gz/download 
+#RUN wget -O sphinxbase-5prealpha.tar.gz https://sourceforge.net/projects/cmusphinx/files/sphinxbase/5prealpha/sphinxbase-5prealpha.tar.gz/download 
+#RUN tar xzf pocketsphinx-5prealpha.tar.gz
+#RUN tar xzf sphinxbase-5prealpha.tar.gz
+ADD pocketsphinx-5prealpha.tar.gz /home/sphinx
+ADD sphinxbase-5prealpha.tar.gz /home/sphinx
 
 RUN apt-get install -y autoconf libtool automake bison swig
 
@@ -78,12 +80,12 @@ RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
 # Decoder
-#WORKDIR /home/ctc
-#RUN git clone --recursive https://github.com/parlance/ctcdecode.git
-#WORKDIR /home/ctc/ctcdecode
-#RUN pip install wget
-#COPY boost_1_63_0.tar.gz /home/ctc/ctcdecode/third_party/
-#RUN pip install .
+WORKDIR /home/ctc
+RUN git clone --recursive https://github.com/parlance/ctcdecode.git
+WORKDIR /home/ctc/ctcdecode
+RUN pip install wget
+COPY boost_1_63_0.tar.gz /home/ctc/ctcdecode/third_party/
+RUN pip install .
 
 #-----------------------------------
 # Cleanup
