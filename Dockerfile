@@ -6,7 +6,6 @@ FROM pytorch/pytorch
 RUN pip install tqdm h5py lmdb pandas
 RUN pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl
 RUN pip install torchvision
-RUN pip install inferno-pytorch
 RUN pip install git+https://github.com/pytorch/tnt.git@master
 
 RUN apt-get update
@@ -79,12 +78,12 @@ RUN cd pytorch_binding && python3 setup.py install
 RUN ldconfig
 
 # Decoder
-WORKDIR /home/ctc
-RUN git clone --recursive https://github.com/parlance/ctcdecode.git
-WORKDIR /home/ctc/ctcdecode
-RUN pip install wget
-COPY boost_1_63_0.tar.gz /home/ctc/ctcdecode/third_party/
-RUN pip install .
+#WORKDIR /home/ctc
+#RUN git clone --recursive https://github.com/parlance/ctcdecode.git
+#WORKDIR /home/ctc/ctcdecode
+#RUN pip install wget
+#COPY boost_1_63_0.tar.gz /home/ctc/ctcdecode/third_party/
+#RUN pip install .
 
 #-----------------------------------
 # Cleanup
