@@ -104,10 +104,10 @@ RUN pip3 install .
 
 # Warp-CTC
 RUN apt-get install -y cmake
-RUN git clone https://github.com/torch/distro.git /home/torch --recursive
-RUN cd /home/torch && bash install-deps
-ENV TORCH_NVCC_FLAGS -D__CUDA_NO_HALF_OPERATORS__
-RUN cd /home/torch && ./install.sh
+#RUN git clone https://github.com/torch/distro.git /home/torch --recursive
+#RUN cd /home/torch && bash install-deps
+#ENV TORCH_NVCC_FLAGS -D__CUDA_NO_HALF_OPERATORS__
+#RUN cd /home/torch && ./install.sh
 RUN apt-get install -y git cmake tree htop bmon iotop
 RUN pip3 install cython
 RUN apt-get install -y libffi-dev
